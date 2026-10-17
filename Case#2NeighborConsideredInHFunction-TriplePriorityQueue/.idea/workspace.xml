@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="13dc1afa-b5b2-4fc2-ac2f-92dbce61bbf4" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/A_star.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="1qTs0crgMciTI83mw71YKZ1AQH2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.222.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "I:/应佳伟文件/Case#2NeighborConsideredInHFunction-TriplePriorityQueue/Case#2NeighborConsideredInHFunction-TriplePriorityQueue"
+  }
+}]]></component>
+  <component name="ReaderModeSettings">
+    <option name="enabled" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator.DESKTOP-86GSMFT\Desktop" />
+      <recent name="E:\pycharm_works\bysj3" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.222">
+    <configuration name="222" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/222.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create_map_matrix" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/create_map_matrix.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="draw_legend" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draw_legend.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\Paper2022\实物保护系统有效性分析\算法代码\bysj17\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="bysj" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:\pycharm_works\bysj\plot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.222" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.draw_legend" />
+        <item itemvalue="Python.plot (1)" />
+        <item itemvalue="Python.create_map_matrix" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-9f8e2b94138c-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26094.141" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="13dc1afa-b5b2-4fc2-ac2f-92dbce61bbf4" name="Default Changelist" comment="" />
+      <created>1617114692718</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617114692718</updated>
+      <workItem from="1628607079637" duration="217000" />
+      <workItem from="1628607316911" duration="131000" />
+      <workItem from="1628607552444" duration="884000" />
+      <workItem from="1628609147769" duration="8000" />
+      <workItem from="1628643725046" duration="26014000" />
+      <workItem from="1628729294502" duration="12434000" />
+      <workItem from="1650205061301" duration="1715000" />
+      <workItem from="1650206821119" duration="946000" />
+      <workItem from="1650240100140" duration="1674000" />
+      <workItem from="1650242023189" duration="1785000" />
+      <workItem from="1650244373771" duration="8863000" />
+      <workItem from="1651104957197" duration="1783000" />
+      <workItem from="1651107199219" duration="1486000" />
+      <workItem from="1651109239405" duration="1776000" />
+      <workItem from="1651111065333" duration="1961000" />
+      <workItem from="1651113076609" duration="1778000" />
+      <workItem from="1651114889521" duration="1728000" />
+      <workItem from="1651116837606" duration="4066000" />
+      <workItem from="1651126628920" duration="5388000" />
+      <workItem from="1651133079083" duration="1621000" />
+      <workItem from="1651245022639" duration="925000" />
+      <workItem from="1651283735014" duration="104000" />
+      <workItem from="1651284148075" duration="103000" />
+      <workItem from="1651284268849" duration="25000" />
+      <workItem from="1651284457668" duration="1788000" />
+      <workItem from="1651286280821" duration="1787000" />
+      <workItem from="1651288109175" duration="1777000" />
+      <workItem from="1651289928531" duration="1782000" />
+      <workItem from="1651291749301" duration="775000" />
+      <workItem from="1651301942323" duration="1738000" />
+      <workItem from="1651303915530" duration="1778000" />
+      <workItem from="1651305733220" duration="1779000" />
+      <workItem from="1651307588498" duration="90000" />
+      <workItem from="1651307739170" duration="1945000" />
+      <workItem from="1651309721112" duration="1802000" />
+      <workItem from="1651311558641" duration="1527000" />
+      <workItem from="1651313117172" duration="978000" />
+      <workItem from="1651319375807" duration="799000" />
+      <workItem from="1651320273464" duration="1836000" />
+      <workItem from="1651322143425" duration="1806000" />
+      <workItem from="1651323991867" duration="1782000" />
+      <workItem from="1651325807228" duration="1784000" />
+      <workItem from="1651327634328" duration="2025000" />
+      <workItem from="1651329710590" duration="1777000" />
+      <workItem from="1651331546055" duration="1987000" />
+      <workItem from="1651333568985" duration="677000" />
+      <workItem from="1651366873889" duration="1773000" />
+      <workItem from="1651368680509" duration="1516000" />
+      <workItem from="1651370490080" duration="1778000" />
+      <workItem from="1651372301672" duration="1504000" />
+      <workItem from="1651374140892" duration="1779000" />
+      <workItem from="1651375981584" duration="1084000" />
+      <workItem from="1651377092000" duration="302000" />
+      <workItem from="1651377741988" duration="740000" />
+      <workItem from="1651386670431" duration="32000" />
+      <workItem from="1651386716181" duration="1727000" />
+      <workItem from="1651388477290" duration="1894000" />
+      <workItem from="1651390405804" duration="1795000" />
+      <workItem from="1651392238465" duration="1779000" />
+      <workItem from="1651394179070" duration="1780000" />
+      <workItem from="1651395994651" duration="1345000" />
+      <workItem from="1651397917502" duration="1781000" />
+      <workItem from="1651399777010" duration="1779000" />
+      <workItem from="1651401591643" duration="1777000" />
+      <workItem from="1651403441862" duration="1202000" />
+      <workItem from="1651405598979" duration="266000" />
+      <workItem from="1651406034085" duration="148000" />
+      <workItem from="1651406486728" duration="1699000" />
+      <workItem from="1651408492933" duration="1391000" />
+      <workItem from="1651410303383" duration="1784000" />
+      <workItem from="1651412120969" duration="1516000" />
+      <workItem from="1651413931049" duration="1802000" />
+      <workItem from="1651415766348" duration="804000" />
+      <workItem from="1651416688916" duration="356000" />
+      <workItem from="1651419837103" duration="40000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
