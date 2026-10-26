@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')  # 换成这个，会显示图形窗口
 import matplotlib.pyplot as plt
+import time
 
 #=====将二维最小TR矩阵数据值输出到excel表中
 def save(map_tr, path):
@@ -189,5 +190,74 @@ if __name__ == '__main__':
     draw_path(start,target, path4, type='detection', draw_openlist=False, draw_closelist=False)
     print('P_D=', 1 - non_detect_prob[path4[0]])
     print('num of closelist:', len(close_set))
+
+
+    # ======================新增：独立检测点整体概率启发函数================================ #
+    initiate_GlobeParameters()
+    detect_prob_mark.clear()
+    independent_start_time = time.perf_counter()
+    path5 = astar_detect_independent(
+        a, map1, start[::-1], target[::-1], point_TR=special_point_TR,
+        RFT=RFT, v=v, show_process=False, cell_size=1.6)
+    independent_elapsed_ms = (time.perf_counter() - independent_start_time) * 1000
+
+    draw_path2(start, target, path5, type='detection',
+               draw_openlist=True, draw_closelist=True)
+    print('P_D=', 1 - non_detect_prob[path5[0]])
+    print('num of closelist:', len(close_set))
+    print('\n===== 独立检测点整体概率启发函数统计 =====')
+    print('网格总数量:', map1.size)
+    print('栅元尺寸:', 1.6)
+    print('TR:', dic_TR[path5[0]])
+    print('PI:', gscore[path5[0]])
+    print('路径节点数量（个）:', len(path5))
+    print('已遍历节点数量（个）:', len(close_set))
+    print('运行总耗时（ms）:', independent_elapsed_ms)
+
+
+    # ======================新增：仅使用 G(n) 的 Dijkstra 算法================================ #
+    initiate_GlobeParameters()
+    detect_prob_mark.clear()
+    dijkstra_start_time = time.perf_counter()
+    path6 = dijkstra_detect(
+        a, map1, start[::-1], target[::-1], point_TR=special_point_TR,
+        RFT=RFT, v=v, show_process=False, cell_size=1.6)
+    dijkstra_elapsed_ms = (time.perf_counter() - dijkstra_start_time) * 1000
+
+    draw_path2(start, target, path6, type='detection',
+               draw_openlist=True, draw_closelist=True)
+    print('P_D=', 1 - non_detect_prob[path6[0]])
+    print('num of closelist:', len(close_set))
+    print('\n===== 仅使用 G(n) 的 Dijkstra 算法统计 =====')
+    print('网格总数量:', map1.size)
+    print('栅元尺寸:', 1.6)
+    print('TR:', dic_TR[path6[0]])
+    print('PI:', gscore[path6[0]])
+    print('路径节点数量（个）:', len(path6))
+    print('已遍历节点数量（个）:', len(close_set))
+    print('运行总耗时（ms）:', dijkstra_elapsed_ms)
+
+
+    # ======================新增：论文递推式启发函数================================ #
+    initiate_GlobeParameters()
+    detect_prob_mark.clear()
+    recursive_start_time = time.perf_counter()
+    path7 = astar_detect_recursive(
+        a, map1, start[::-1], target[::-1], point_TR=special_point_TR,
+        RFT=RFT, v=v, show_process=False, cell_size=1.6)
+    recursive_elapsed_ms = (time.perf_counter() - recursive_start_time) * 1000
+
+    draw_path2(start, target, path7, type='detection',
+               draw_openlist=True, draw_closelist=True)
+    print('P_D=', 1 - non_detect_prob[path7[0]])
+    print('num of closelist:', len(close_set))
+    print('\n===== 论文递推式启发函数统计 =====')
+    print('网格总数量:', map1.size)
+    print('栅元尺寸:', 1.6)
+    print('TR:', dic_TR[path7[0]])
+    print('PI:', gscore[path7[0]])
+    print('路径节点数量（个）:', len(path7))
+    print('已遍历节点数量（个）:', len(close_set))
+    print('运行总耗时（ms）:', recursive_elapsed_ms)
 
 

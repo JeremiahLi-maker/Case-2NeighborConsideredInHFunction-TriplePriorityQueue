@@ -545,3 +545,299 @@ def astar_detect_1(a, array, start, goal, minTR, RFT, point_TR, v, show_process=
             plt.pause(0.001)
 
     return False
+
+
+# ======================独立检测点整体概率启发函数================================ #
+def detection_field_ratio(array):
+    """Return p from the paper: detection-field area / walkable map area."""
+    walkable = array != 9
+    walkable_count = int(numpy.count_nonzero(walkable))
+    detection_count = int(numpy.count_nonzero((array > 0) & walkable))
+    return detection_count / walkable_count if walkable_count else 0.0
+
+
+def estimate_independent_detection_points(array, current, goal,
+                                          cell_size=1.6, p_field=None):
+    """Estimate m=E(Phi)=p*N_grids using the paper's cell-diagonal model."""
+    if p_field is None:
+        p_field = detection_field_ratio(array)
+
+    dx = abs(current[0] - goal[0])
+    dy = abs(current[1] - goal[1])
+    diagonal_distance = min(dx, dy) * math.sqrt(2) + abs(dx - dy)
+    physical_distance = diagonal_distance * cell_size
+    cell_diagonal = cell_size * math.sqrt(2)
+    remaining_grids = physical_distance / cell_diagonal if cell_diagonal else 0.0
+    return max(0, int(p_field * remaining_grids))
+
+
+def independent_interruption_probability(p_n, p_capture, m):
+    """Probability that at least one of m independent points interrupts successfully."""
+    single_success = max(0.0, min(1.0, p_n * p_capture))
+    return 1.0 - (1.0 - single_success) ** max(0, int(m))
+
+
+def heuristic_cost_estimate_independent(neighbor, goal, current_g, TR, RFT,
+                                        array, p_capture, cell_size=1.6, v=1.0,
+                                        p_field=None):
+    """Aggregate independent-point heuristic used by astar_detect_independent."""
+    p_n = float(array[neighbor[0]][neighbor[1]])
+    m = estimate_independent_detection_points(
+        array, neighbor, goal, cell_size, p_field=p_field)
+    dx = abs(neighbor[0] - goal[0])
+    dy = abs(neighbor[1] - goal[1])
+    diagonal_distance = min(dx, dy) * math.sqrt(2) + abs(dx - dy)
+    future_TR = TR + diagonal_distance * cell_size / v
+    sigma_TR = 0.3 * future_TR
+    sigma_RFT = 0.3 * RFT
+    sigma = math.sqrt(sigma_TR ** 2 + sigma_RFT ** 2)
+    p_ra = Get_P_R1A(future_TR - RFT, sigma) if sigma else 0.0
+    p_capture_n = P_C * p_ra
+    future_success = independent_interruption_probability(p_n, p_capture_n, m)
+    return max(0.0, (1.0 - current_g) * future_success)
+
+
+def astar_detect_independent(a, array, start, goal, point_TR, RFT, v,
+                             show_process=False, cell_size=1.6):
+    """Search with the aggregate independent-detection-point heuristic."""
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0),
+                  (1, 1), (1, -1), (-1, 1), (-1, -1)]
+    global close_set, came_from, gscore, fscore, openSet, non_detect_prob, P_D, dic_TR
+    Min_D = a
+    p_field = detection_field_ratio(array)
+
+    temp = start
+    start = goal
+    goal = temp
+    dic_TR[start] = 0
+    gscore[start] = array[start[0]][start[1]] * P_C * Get_P_R1A(-RFT, 0.3 * RFT)
+    non_detect_prob[start] = 1 - array[start[0]][start[1]]
+    fscore[start] = gscore[start]
+    heappush(openSet, (fscore[start], dic_TR[start], start))
+
+    while openSet:
+        current = heappop(openSet)[2]
+        if current == goal:
+            return reconstruct_path(came_from, current)
+        close_set.add(current)
+
+        for i, j in directions:
+            neighbor = current[0] + i, current[1] + j
+            if not (0 <= neighbor[0] < array.shape[0] and
+                    0 <= neighbor[1] < array.shape[1]):
+                continue
+            if array[neighbor[0]][neighbor[1]] == 9 or neighbor in close_set:
+                continue
+
+            add_TR = (cell_size / v if i == 0 or j == 0
+                      else cell_size * math.sqrt(2) / v)
+            if neighbor in point_TR:
+                add_TR += point_TR[neighbor]
+            TR = dic_TR[current] + add_TR
+
+            p_n = array[neighbor[0]][neighbor[1]]
+            tentative_gScore = ((1 - p_n) * gscore[current] +
+                                p_n * P_C * Get_P_R1A(TR - RFT,
+                                                      math.sqrt((0.3 * TR) ** 2 +
+                                                                (0.3 * RFT) ** 2)))
+            h_value = heuristic_cost_estimate_independent(
+                neighbor, goal, tentative_gScore, TR, RFT, array,
+                P_C, cell_size, v, p_field=p_field)
+            tmpValue = tentative_gScore + h_value
+
+            if neighbor in [item[2] for item in openSet]:
+                if tentative_gScore >= gscore.get(neighbor, numpy.inf):
+                    continue
+                old_item = next(item for item in openSet if item[2] == neighbor)
+                openSet.remove(old_item)
+                heappush(openSet, (tmpValue, TR, neighbor))
+                came_from[neighbor] = current
+                dic_TR[neighbor] = TR
+                gscore[neighbor] = tentative_gScore
+                fscore[neighbor] = tmpValue
+                non_detect_prob[neighbor] = non_detect_prob[current] * (1 - p_n)
+                continue
+
+            heappush(openSet, (tmpValue, TR, neighbor))
+            came_from[neighbor] = current
+            dic_TR[neighbor] = TR
+            gscore[neighbor] = tentative_gScore
+            fscore[neighbor] = tmpValue
+            non_detect_prob[neighbor] = non_detect_prob[current] * (1 - p_n)
+
+        if show_process:
+            plt.cla()
+            plot.draw_outline(start[::-1], goal[::-1])
+            for item in (item[2] for item in openSet):
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="green")
+            for item in close_set:
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="purple")
+            plt.pause(0.01)
+    return False
+
+
+def dijkstra_detect(a, array, start, goal, point_TR, RFT, v,
+                    show_process=False, cell_size=1.6):
+    """Dijkstra search using only the accumulated interruption cost G(n)."""
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0),
+                  (1, 1), (1, -1), (-1, 1), (-1, -1)]
+    global close_set, came_from, gscore, fscore, openSet, non_detect_prob, P_D, dic_TR
+
+    temp = start
+    start = goal
+    goal = temp
+    dic_TR[start] = 0
+    gscore[start] = array[start[0]][start[1]] * P_C * Get_P_R1A(-RFT, 0.3 * RFT)
+    fscore[start] = gscore[start]
+    non_detect_prob[start] = 1 - array[start[0]][start[1]]
+    heappush(openSet, (gscore[start], dic_TR[start], start))
+
+    while openSet:
+        current = heappop(openSet)[2]
+        if current == goal:
+            return reconstruct_path(came_from, current)
+        close_set.add(current)
+
+        for i, j in directions:
+            neighbor = current[0] + i, current[1] + j
+            if not (0 <= neighbor[0] < array.shape[0] and
+                    0 <= neighbor[1] < array.shape[1]):
+                continue
+            if array[neighbor[0]][neighbor[1]] == 9 or neighbor in close_set:
+                continue
+
+            add_TR = (cell_size / v if i == 0 or j == 0
+                      else cell_size * math.sqrt(2) / v)
+            if neighbor in point_TR:
+                add_TR += point_TR[neighbor]
+            TR = dic_TR[current] + add_TR
+            p_n = array[neighbor[0]][neighbor[1]]
+            sigma = math.sqrt((0.3 * TR) ** 2 + (0.3 * RFT) ** 2)
+            tentative_gScore = ((1 - p_n) * gscore[current] +
+                                p_n * P_C * Get_P_R1A(TR - RFT, sigma))
+
+            if tentative_gScore >= gscore.get(neighbor, numpy.inf):
+                continue
+
+            if neighbor in [item[2] for item in openSet]:
+                old_item = next(item for item in openSet if item[2] == neighbor)
+                openSet.remove(old_item)
+
+            heappush(openSet, (tentative_gScore, TR, neighbor))
+            came_from[neighbor] = current
+            dic_TR[neighbor] = TR
+            gscore[neighbor] = tentative_gScore
+            fscore[neighbor] = tentative_gScore
+            non_detect_prob[neighbor] = non_detect_prob[current] * (1 - p_n)
+
+        if show_process:
+            plt.cla()
+            plot.draw_outline(start[::-1], goal[::-1])
+            for item in (item[2] for item in openSet):
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="green")
+            for item in close_set:
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="purple")
+            plt.pause(0.01)
+    return False
+
+
+def minimum_detection_probability(array):
+    """Return the minimum nonzero detection probability on the map."""
+    values = array[(array > 0) & (array != 9)]
+    return float(numpy.min(values)) if values.size else 0.0
+
+
+def heuristic_cost_estimate_recursive(neighbor, goal, current_g, TR, RFT,
+                                      array, p_min, p_field, cell_size=1.6,
+                                      v=1.0):
+    """Paper Eq. (8): recursively estimate H(n)=P_s^I-P_n^I."""
+    m = estimate_independent_detection_points(
+        array, neighbor, goal, cell_size, p_field=p_field)
+    dx = abs(neighbor[0] - goal[0])
+    dy = abs(neighbor[1] - goal[1])
+    diagonal_distance = min(dx, dy) * math.sqrt(2) + abs(dx - dy)
+    future_TR = TR + diagonal_distance * cell_size / v
+    sigma = math.sqrt((0.3 * future_TR) ** 2 + (0.3 * RFT) ** 2)
+    p_ra = Get_P_R1A(future_TR - RFT, sigma) if sigma else 0.0
+    q_n = P_C * p_ra
+
+    cumulative_probability = current_g
+    for _ in range(m):
+        cumulative_probability = (p_min * q_n +
+                                  (1.0 - p_min) * cumulative_probability)
+    return max(0.0, cumulative_probability - current_g)
+
+
+def astar_detect_recursive(a, array, start, goal, point_TR, RFT, v,
+                           show_process=False, cell_size=1.6):
+    """A* search using the recursive heuristic from paper Eq. (8)."""
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0),
+                  (1, 1), (1, -1), (-1, 1), (-1, -1)]
+    global close_set, came_from, gscore, fscore, openSet, non_detect_prob, P_D, dic_TR
+
+    p_min = minimum_detection_probability(array)
+    p_field = detection_field_ratio(array)
+    temp = start
+    start = goal
+    goal = temp
+    dic_TR[start] = 0
+    gscore[start] = array[start[0]][start[1]] * P_C * Get_P_R1A(-RFT, 0.3 * RFT)
+    non_detect_prob[start] = 1 - array[start[0]][start[1]]
+    fscore[start] = gscore[start]
+    heappush(openSet, (fscore[start], dic_TR[start], start))
+
+    while openSet:
+        current = heappop(openSet)[2]
+        if current == goal:
+            return reconstruct_path(came_from, current)
+        close_set.add(current)
+
+        for i, j in directions:
+            neighbor = current[0] + i, current[1] + j
+            if not (0 <= neighbor[0] < array.shape[0] and
+                    0 <= neighbor[1] < array.shape[1]):
+                continue
+            if array[neighbor[0]][neighbor[1]] == 9 or neighbor in close_set:
+                continue
+
+            add_TR = (cell_size / v if i == 0 or j == 0
+                      else cell_size * math.sqrt(2) / v)
+            if neighbor in point_TR:
+                add_TR += point_TR[neighbor]
+            TR = dic_TR[current] + add_TR
+            p_n = array[neighbor[0]][neighbor[1]]
+            sigma = math.sqrt((0.3 * TR) ** 2 + (0.3 * RFT) ** 2)
+            tentative_gScore = ((1 - p_n) * gscore[current] +
+                                p_n * P_C * Get_P_R1A(TR - RFT, sigma))
+            h_value = heuristic_cost_estimate_recursive(
+                neighbor, goal, tentative_gScore, TR, RFT, array,
+                p_min, p_field, cell_size, v)
+            tmpValue = tentative_gScore + h_value
+
+            if tentative_gScore >= gscore.get(neighbor, numpy.inf):
+                continue
+            if neighbor in [item[2] for item in openSet]:
+                old_item = next(item for item in openSet if item[2] == neighbor)
+                openSet.remove(old_item)
+            heappush(openSet, (tmpValue, TR, neighbor))
+            came_from[neighbor] = current
+            dic_TR[neighbor] = TR
+            gscore[neighbor] = tentative_gScore
+            fscore[neighbor] = tmpValue
+            non_detect_prob[neighbor] = non_detect_prob[current] * (1 - p_n)
+
+        if show_process:
+            plt.cla()
+            plot.draw_outline(start[::-1], goal[::-1])
+            for item in (item[2] for item in openSet):
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="green")
+            for item in close_set:
+                x, y = item[1], -item[0]
+                plt.fill_between([x, x + 1], y - 1, y, facecolor="purple")
+            plt.pause(0.01)
+    return False
